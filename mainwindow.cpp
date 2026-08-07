@@ -501,7 +501,7 @@ void MainWindow::finishAutoset()
 void MainWindow::setChannelVisible(int channel, bool visible)
 {
     if (syncing_ || !scope_.isConnected()) return;
-    guard(QString("CH%1 Display").arg(channel), [=, this] {
+    guard(QString("CH%1 Display").arg(channel), [this, channel, visible] {
         scope_.setChannelDisplay(channel, visible);
         log(QString("CH%1 display %2.").arg(channel).arg(visible ? "ON" : "OFF"));
         scheduleRefresh();
@@ -511,7 +511,7 @@ void MainWindow::setChannelVisible(int channel, bool visible)
 void MainWindow::setChannelScale(int channel, const QString &label)
 {
     if (syncing_ || !scope_.isConnected()) return;
-    guard(QString("CH%1 Scale").arg(channel), [=, this] {
+    guard(QString("CH%1 Scale").arg(channel), [this, channel, label] {
         scope_.setChannelScale(channel, volts_.value(label));
         log(QString("CH%1 scale set to %2.").arg(channel).arg(label));
         scheduleRefresh();
@@ -521,7 +521,7 @@ void MainWindow::setChannelScale(int channel, const QString &label)
 void MainWindow::setTimeScale(const QString &label)
 {
     if (syncing_ || !scope_.isConnected()) return;
-    guard("Time Scale", [=, this] {
+    guard("Time Scale", [this, label] {
         const double scale = times_.value(label);
         scope_.setTimeScale(scale);
         log("Time scale set to " + label + ".");
