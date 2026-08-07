@@ -12,8 +12,11 @@ qt_add_executable(rigol_gui_cpp
     main.cpp
     mainwindow.cpp
     mainwindow.h
+    scopecontroller.cpp
+    scopecontroller.h
+    waveformwidget.cpp
+    waveformwidget.h
 )
 
-target_link_libraries(rigol_gui_cpp
-    PRIVATE Qt6::Widgets
-)
+target_link_libraries(rigol_gui_cpp PRIVATE Qt6::Widgets)
+
